@@ -1,8 +1,7 @@
 syntax = "proto3";
-
 package auth;
 
-option go_package = "cn.sso.v1;ssov1";
+option go_package = "github.com/anon-d/proto/auth;auth";
 
 service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse);
