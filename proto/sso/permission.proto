@@ -1,0 +1,4 @@
+syntax = "proto3";
+package permission;
+
+option go_package = "github.com/anon-d/proto/permission;permission";
