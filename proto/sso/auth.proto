@@ -6,7 +6,7 @@ option go_package = "github.com/anon-d/proto/auth;auth";
 service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
-    rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse);
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
 }
 
 message RegisterRequest {
@@ -23,12 +23,13 @@ message LoginRequest {
     int32 app_id = 3;
 }
 message LoginResponse {
-    string token = 1;
+    string accessToken = 1;
+    string refreshToken = 1;
 }
 
-message IsAdminRequest {
+message LogoutRequest {
     int64 user_id = 1;
 }
-message IsAdminResponse {
-    bool is_admin = 1;
+message LogoutResponse {
+    bool logout = 1;
 }
