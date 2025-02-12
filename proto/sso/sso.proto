@@ -9,6 +9,7 @@ service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc Logout(LogoutRequest) returns (google.protobuf.Empty);
+    rpc AccessToken(TokenRequest) returns (TokenResponse);
 }
 
 service Directory {
@@ -47,6 +48,13 @@ message LoginResponse {
 
 message LogoutRequest {
     int64 user_id = 1;
+}
+
+message TokenRequest {
+    string refreshToken = 1;
+}
+message TokenResponse {
+    string accessToken = 1;
 }
 
 // ---- DIRECTORY MESSAGE ----

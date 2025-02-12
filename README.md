@@ -19,7 +19,7 @@ brew isntall protoc
 ```
 ## Usage
 ```bash
-task generate
+task sso
 ```
 ## Command
 ```bash
