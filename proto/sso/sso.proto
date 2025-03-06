@@ -33,7 +33,7 @@ message RegisterRequest {
     string password = 2;
 }
 message RegisterResponse {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message LoginRequest {
@@ -47,7 +47,7 @@ message LoginResponse {
 }
 
 message LogoutRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
 }
 
 message TokenRequest {
@@ -60,7 +60,7 @@ message TokenResponse {
 
 // ---- DIRECTORY MESSAGE ----
 message GetUserRequest {
-    string email = 1;
+    bytes user_id = 1;
 }
 
 message GetUserResponse {
@@ -68,8 +68,9 @@ message GetUserResponse {
 }
 
 message UpdateUserRequest {
-    string email = 1;
-    string password = 2;
+    bytes user_id = 1;
+    string email = 2;
+    string password = 3;
 }
 
 message UpdateUserResponse {
@@ -77,7 +78,7 @@ message UpdateUserResponse {
 }
 
 message DeleteUserRequest {
-    string email = 1;
+    bytes user_id = 1;
 }
 
 // ---- PERMISSION MESSAGE ----
@@ -115,7 +116,7 @@ message DeletePermissionResponse {
 }
 
 message AssignPermissionRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
     int64 permission_id = 2;
 }
 
@@ -124,7 +125,7 @@ message AssignPermissionResponse {
 }
 
 message RemovePermissionRequest {
-    int64 user_id = 1;
+    bytes user_id = 1;
     int64 permission_id = 2;
 }
 
@@ -134,12 +135,12 @@ message RemovePermissionResponse {
 
 // ---- IDs (executing users permissions) ----
 message UserPermissions {
-    int64 user_id = 1;
+    bytes user_id = 1;
     repeated int64 permission_ids = 2;
 }
 
 // ---- USER MESSAGE STRUCT ----
 message User {
-    int64 user_id = 1;
+    bytes user_id = 1;
     string email = 2;
 }
