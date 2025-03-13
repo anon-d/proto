@@ -60,7 +60,7 @@ message TokenResponse {
 
 // ---- DIRECTORY MESSAGE ----
 message GetUserRequest {
-    bytes user_id = 1;
+    bytes access_token = 1;
 }
 
 message GetUserResponse {
@@ -68,9 +68,8 @@ message GetUserResponse {
 }
 
 message UpdateUserRequest {
-    bytes user_id = 1;
-    string email = 2;
-    string password = 3;
+    bytes access_token = 1;
+    string password = 2;
 }
 
 message UpdateUserResponse {
@@ -78,7 +77,7 @@ message UpdateUserResponse {
 }
 
 message DeleteUserRequest {
-    bytes user_id = 1;
+    bytes access_token = 1;
 }
 
 // ---- PERMISSION MESSAGE ----
