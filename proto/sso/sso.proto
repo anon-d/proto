@@ -60,7 +60,8 @@ message TokenResponse {
 
 // ---- DIRECTORY MESSAGE ----
 message GetUserRequest {
-    string access_token = 1;
+    bytes user_id = 1;
+    string access_token = 2;
 }
 
 message GetUserResponse {
