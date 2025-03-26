@@ -47,7 +47,7 @@ message LoginResponse {
 }
 
 message LogoutRequest {
-    bytes user_id = 1;
+    string refreshToken = 1;
 }
 
 message TokenRequest {
