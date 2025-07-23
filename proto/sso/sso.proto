@@ -14,6 +14,7 @@ service Auth {
 
 service Directory {
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc GetUserDocuments(GetUserDocumentsRequest) returns (GetUserDocumentsResponse);
     rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
     rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
 }
@@ -65,6 +66,14 @@ message GetUserRequest {
 
 message GetUserResponse {
     User user = 1;
+}
+
+message GetUserDocumentsRequest {
+    string accessToken = 1;
+}
+
+message GetUserDocumentsResponse {
+    repeated string documents = 1;
 }
 
 message UpdateUserRequest {

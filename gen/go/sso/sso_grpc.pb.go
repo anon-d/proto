@@ -236,9 +236,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	Directory_GetUser_FullMethodName    = "/sso.Directory/GetUser"
-	Directory_UpdateUser_FullMethodName = "/sso.Directory/UpdateUser"
-	Directory_DeleteUser_FullMethodName = "/sso.Directory/DeleteUser"
+	Directory_GetUser_FullMethodName          = "/sso.Directory/GetUser"
+	Directory_GetUserDocuments_FullMethodName = "/sso.Directory/GetUserDocuments"
+	Directory_UpdateUser_FullMethodName       = "/sso.Directory/UpdateUser"
+	Directory_DeleteUser_FullMethodName       = "/sso.Directory/DeleteUser"
 )
 
 // DirectoryClient is the client API for Directory service.
@@ -246,6 +247,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DirectoryClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	GetUserDocuments(ctx context.Context, in *GetUserDocumentsRequest, opts ...grpc.CallOption) (*GetUserDocumentsResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -262,6 +264,16 @@ func (c *directoryClient) GetUser(ctx context.Context, in *GetUserRequest, opts 
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetUserResponse)
 	err := c.cc.Invoke(ctx, Directory_GetUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *directoryClient) GetUserDocuments(ctx context.Context, in *GetUserDocumentsRequest, opts ...grpc.CallOption) (*GetUserDocumentsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserDocumentsResponse)
+	err := c.cc.Invoke(ctx, Directory_GetUserDocuments_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -293,6 +305,7 @@ func (c *directoryClient) DeleteUser(ctx context.Context, in *DeleteUserRequest,
 // for forward compatibility.
 type DirectoryServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
+	GetUserDocuments(context.Context, *GetUserDocumentsRequest) (*GetUserDocumentsResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*emptypb.Empty, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDirectoryServer()
@@ -307,6 +320,9 @@ type UnimplementedDirectoryServer struct{}
 
 func (UnimplementedDirectoryServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (UnimplementedDirectoryServer) GetUserDocuments(context.Context, *GetUserDocumentsRequest) (*GetUserDocumentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDocuments not implemented")
 }
 func (UnimplementedDirectoryServer) UpdateUser(context.Context, *UpdateUserRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
@@ -349,6 +365,24 @@ func _Directory_GetUser_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DirectoryServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Directory_GetUserDocuments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDocumentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DirectoryServer).GetUserDocuments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Directory_GetUserDocuments_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DirectoryServer).GetUserDocuments(ctx, req.(*GetUserDocumentsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -399,6 +433,10 @@ var Directory_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUser",
 			Handler:    _Directory_GetUser_Handler,
+		},
+		{
+			MethodName: "GetUserDocuments",
+			Handler:    _Directory_GetUserDocuments_Handler,
 		},
 		{
 			MethodName: "UpdateUser",
