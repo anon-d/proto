@@ -148,5 +148,4 @@ message UserPermissions {
 message User {
     bytes user_id = 1;
     string email = 2;
-    repeated string docs = 3;
 }
