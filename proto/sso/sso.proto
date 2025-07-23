@@ -10,6 +10,7 @@ service Auth {
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc Logout(LogoutRequest) returns (google.protobuf.Empty);
     rpc AccessToken(TokenRequest) returns (TokenResponse);
+    rpc Validate(ValidateRequest) returns (ValidateResponse);
 }
 
 service Directory {
@@ -56,6 +57,14 @@ message TokenRequest {
 }
 message TokenResponse {
     string accessToken = 1;
+}
+
+message ValidateRequest {
+    string accessToken = 1;
+}
+
+message ValidateResponse {
+    bool valid = 1;
 }
 
 // ---- DIRECTORY MESSAGE ----
