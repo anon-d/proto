@@ -32,6 +32,7 @@ service Permission {
 message RegisterRequest {
     string email = 1;
     string password = 2;
+    string name = 3;
 }
 message RegisterResponse {
     bytes user_id = 1;
@@ -148,4 +149,7 @@ message UserPermissions {
 message User {
     bytes user_id = 1;
     string email = 2;
+    string name = 3;
+    repeated string groups = 4;
+    bool is_active = 5;
 }
