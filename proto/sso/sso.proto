@@ -20,12 +20,12 @@ service Directory {
 }
 
 service Permission {
-    rpc Create(CreatePermissionRequest) returns (CreatePermissionResponse);
-    rpc Read(ReadPermissionRequest) returns (ReadPermissionResponse);
-    rpc Update(UpdatePermissionRequest) returns (UpdatePermissionResponse);
-    rpc Delete(DeletePermissionRequest) returns (DeletePermissionResponse);
-    rpc AssignPermissionToUser(AssignPermissionRequest) returns (AssignPermissionResponse);
-    rpc RemovePermissionFromUser(RemovePermissionRequest) returns (RemovePermissionResponse);
+    rpc CreatePermission(CreatePermissionRequest) returns (google.protobuf.Empty);
+    rpc GetInfoForPermissions(google.protobuf.Empty) returns (ReadPermissionResponse);
+    rpc UpdatePermission(UpdatePermissionRequest) returns (google.protobuf.Empty);
+    rpc DeletePermission(DeletePermissionRequest) returns (google.protobuf.Empty);
+    rpc AssignPermissionToUser(AssignPermissionRequest) returns (google.protobuf.Empty);
+    rpc RemovePermissionFromUser(RemovePermissionRequest) returns (google.protobuf.Empty);
 }
 
 // ---- AUTH MESSAGE ----
@@ -89,60 +89,36 @@ message DeleteUserRequest {
 
 // ---- PERMISSION MESSAGE ----
 message CreatePermissionRequest {
-    string name = 1;
-}
-
-message CreatePermissionResponse {
-    int64 permission_id = 1;
-}
-
-message ReadPermissionRequest {
-    int64 permission_id = 1;
+    string description = 1;
 }
 
 message ReadPermissionResponse {
-    string name = 1;
+    repeated Privilege privileges = 1;
 }
 
 message UpdatePermissionRequest {
-    int64 permission_id = 1;
+    int64 privilege_id = 1;
     string name = 2;
 }
 
-message UpdatePermissionResponse {
-    bool success = 1;
-}
-
 message DeletePermissionRequest {
-    int64 permission_id = 1;
-}
-
-message DeletePermissionResponse {
-    bool success = 1;
+    int64 privilege_id = 1;
 }
 
 message AssignPermissionRequest {
     bytes user_id = 1;
-    int64 permission_id = 2;
-}
-
-message AssignPermissionResponse {
-    bool success = 1;
+    int64 privilege_id = 2;
 }
 
 message RemovePermissionRequest {
     bytes user_id = 1;
-    int64 permission_id = 2;
-}
-
-message RemovePermissionResponse {
-    bool success = 1;
+    int64 privilege_id = 2;
 }
 
 // ---- IDs (executing users permissions) ----
 message UserPermissions {
     bytes user_id = 1;
-    repeated int64 permission_ids = 2;
+    repeated int64 privilege_id = 2;
 }
 
 // ---- USER MESSAGE STRUCT ----
@@ -152,4 +128,9 @@ message User {
     string name = 3;
     repeated string groups = 4;
     bool is_active = 5;
+}
+
+message Privilege {
+    int64 privilege_id = 1;
+    repeated string description = 2;
 }
