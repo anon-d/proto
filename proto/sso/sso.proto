@@ -137,7 +137,7 @@ message User {
 message App {
     bytes app_id = 1;
     string name = 2;
-    repeated Privilege privileges = 3;
+    Privilege privilege = 3;
 }
 
 // ---- GROUP MESSAGE STRUCT ----
