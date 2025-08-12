@@ -5,6 +5,7 @@ option go_package = "github.com/anon-d/proto/sso;sso";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 
 service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse);
@@ -20,13 +21,17 @@ service Directory {
     rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
 }
 
-service Permission {
+service PermissionService {
+    // ---- ADMIN FUNCTIONS ----
     rpc CreatePermission(CreatePermissionRequest) returns (google.protobuf.Empty);
-    rpc GetInfoForPermissions(google.protobuf.Empty) returns (ReadPermissionResponse);
+    rpc GetInfoForPermissions(ReadPermissionRequest) returns (ReadPermissionResponse);
     rpc UpdatePermission(UpdatePermissionRequest) returns (google.protobuf.Empty);
     rpc DeletePermission(DeletePermissionRequest) returns (google.protobuf.Empty);
     rpc AssignPermissionToUser(AssignPermissionRequest) returns (google.protobuf.Empty);
     rpc RemovePermissionFromUser(RemovePermissionRequest) returns (google.protobuf.Empty);
+
+    // ---- USER FUNCTIONS ----
+    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
 }
 
 // ---- AUTH MESSAGE ----
@@ -88,22 +93,28 @@ message DeleteUserRequest {
     string accessToken = 1;
 }
 
-// ---- PERMISSION MESSAGE ----
+// ---- PERMISSION MESSAGE (ADMIN) ----
 message CreatePermissionRequest {
-    string description = 1;
+    bytes app_id = 1;
+    GroupPrivilege group_privilege = 2;
+}
+
+message ReadPermissionRequest {
+    bytes app_id = 1;
 }
 
 message ReadPermissionResponse {
-    repeated Privilege privileges = 1;
+    Permission permission = 1;
 }
 
 message UpdatePermissionRequest {
-    int64 privilege_id = 1;
-    string name = 2;
+    bytes app_id = 1;
+    GroupPrivilege group_privilege = 2;
 }
 
 message DeletePermissionRequest {
-    int64 privilege_id = 1;
+    bytes app_id = 1;
+    int64 privilege_id = 2;
 }
 
 message AssignPermissionRequest {
@@ -114,6 +125,15 @@ message AssignPermissionRequest {
 message RemovePermissionRequest {
     bytes user_id = 1;
     int64 privilege_id = 2;
+}
+
+// ---- PERMISSION MESSAGE (USER) ----
+message CheckPermissionRequest {
+    google.protobuf.Struct input = 1;
+}
+
+message CheckPermissionResponse {
+    bool allow = 1;
 }
 
 // ---- IDs (executing users permissions) ----
@@ -137,10 +157,10 @@ message User {
 message App {
     bytes app_id = 1;
     string name = 2;
-    Privilege privilege = 3;
 }
 
 // ---- GROUP MESSAGE STRUCT ----
+// ---- for creating premissions service (on future)
 message Group {
     bytes group_id = 1;
     string name = 2;
@@ -151,6 +171,7 @@ message GroupPrivilege {
     int32 privilege = 2;
 }
 
-message Privilege {
-    repeated GroupPrivilege privileges = 1;
+message Permission {
+    repeated GroupPrivilege group_privilege = 1;
 }
+// ----

@@ -452,291 +452,333 @@ var Directory_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	Permission_CreatePermission_FullMethodName         = "/sso.Permission/CreatePermission"
-	Permission_GetInfoForPermissions_FullMethodName    = "/sso.Permission/GetInfoForPermissions"
-	Permission_UpdatePermission_FullMethodName         = "/sso.Permission/UpdatePermission"
-	Permission_DeletePermission_FullMethodName         = "/sso.Permission/DeletePermission"
-	Permission_AssignPermissionToUser_FullMethodName   = "/sso.Permission/AssignPermissionToUser"
-	Permission_RemovePermissionFromUser_FullMethodName = "/sso.Permission/RemovePermissionFromUser"
+	PermissionService_CreatePermission_FullMethodName         = "/sso.PermissionService/CreatePermission"
+	PermissionService_GetInfoForPermissions_FullMethodName    = "/sso.PermissionService/GetInfoForPermissions"
+	PermissionService_UpdatePermission_FullMethodName         = "/sso.PermissionService/UpdatePermission"
+	PermissionService_DeletePermission_FullMethodName         = "/sso.PermissionService/DeletePermission"
+	PermissionService_AssignPermissionToUser_FullMethodName   = "/sso.PermissionService/AssignPermissionToUser"
+	PermissionService_RemovePermissionFromUser_FullMethodName = "/sso.PermissionService/RemovePermissionFromUser"
+	PermissionService_CheckPermission_FullMethodName          = "/sso.PermissionService/CheckPermission"
 )
 
-// PermissionClient is the client API for Permission service.
+// PermissionServiceClient is the client API for PermissionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PermissionClient interface {
+type PermissionServiceClient interface {
+	// ---- ADMIN FUNCTIONS ----
 	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetInfoForPermissions(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ReadPermissionResponse, error)
+	GetInfoForPermissions(ctx context.Context, in *ReadPermissionRequest, opts ...grpc.CallOption) (*ReadPermissionResponse, error)
 	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	AssignPermissionToUser(ctx context.Context, in *AssignPermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RemovePermissionFromUser(ctx context.Context, in *RemovePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// ---- USER FUNCTIONS ----
+	CheckPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 }
 
-type permissionClient struct {
+type permissionServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPermissionClient(cc grpc.ClientConnInterface) PermissionClient {
-	return &permissionClient{cc}
+func NewPermissionServiceClient(cc grpc.ClientConnInterface) PermissionServiceClient {
+	return &permissionServiceClient{cc}
 }
 
-func (c *permissionClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionServiceClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Permission_CreatePermission_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_CreatePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) GetInfoForPermissions(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ReadPermissionResponse, error) {
+func (c *permissionServiceClient) GetInfoForPermissions(ctx context.Context, in *ReadPermissionRequest, opts ...grpc.CallOption) (*ReadPermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ReadPermissionResponse)
-	err := c.cc.Invoke(ctx, Permission_GetInfoForPermissions_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_GetInfoForPermissions_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionServiceClient) UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Permission_UpdatePermission_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_UpdatePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionServiceClient) DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Permission_DeletePermission_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_DeletePermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) AssignPermissionToUser(ctx context.Context, in *AssignPermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionServiceClient) AssignPermissionToUser(ctx context.Context, in *AssignPermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Permission_AssignPermissionToUser_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_AssignPermissionToUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) RemovePermissionFromUser(ctx context.Context, in *RemovePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *permissionServiceClient) RemovePermissionFromUser(ctx context.Context, in *RemovePermissionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Permission_RemovePermissionFromUser_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PermissionService_RemovePermissionFromUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PermissionServer is the server API for Permission service.
-// All implementations must embed UnimplementedPermissionServer
+func (c *permissionServiceClient) CheckPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CheckPermissionResponse)
+	err := c.cc.Invoke(ctx, PermissionService_CheckPermission_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PermissionServiceServer is the server API for PermissionService service.
+// All implementations must embed UnimplementedPermissionServiceServer
 // for forward compatibility.
-type PermissionServer interface {
+type PermissionServiceServer interface {
+	// ---- ADMIN FUNCTIONS ----
 	CreatePermission(context.Context, *CreatePermissionRequest) (*emptypb.Empty, error)
-	GetInfoForPermissions(context.Context, *emptypb.Empty) (*ReadPermissionResponse, error)
+	GetInfoForPermissions(context.Context, *ReadPermissionRequest) (*ReadPermissionResponse, error)
 	UpdatePermission(context.Context, *UpdatePermissionRequest) (*emptypb.Empty, error)
 	DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error)
 	AssignPermissionToUser(context.Context, *AssignPermissionRequest) (*emptypb.Empty, error)
 	RemovePermissionFromUser(context.Context, *RemovePermissionRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedPermissionServer()
+	// ---- USER FUNCTIONS ----
+	CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
+	mustEmbedUnimplementedPermissionServiceServer()
 }
 
-// UnimplementedPermissionServer must be embedded to have
+// UnimplementedPermissionServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedPermissionServer struct{}
+type UnimplementedPermissionServiceServer struct{}
 
-func (UnimplementedPermissionServer) CreatePermission(context.Context, *CreatePermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionServiceServer) CreatePermission(context.Context, *CreatePermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
 }
-func (UnimplementedPermissionServer) GetInfoForPermissions(context.Context, *emptypb.Empty) (*ReadPermissionResponse, error) {
+func (UnimplementedPermissionServiceServer) GetInfoForPermissions(context.Context, *ReadPermissionRequest) (*ReadPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInfoForPermissions not implemented")
 }
-func (UnimplementedPermissionServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionServiceServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermission not implemented")
 }
-func (UnimplementedPermissionServer) DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionServiceServer) DeletePermission(context.Context, *DeletePermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePermission not implemented")
 }
-func (UnimplementedPermissionServer) AssignPermissionToUser(context.Context, *AssignPermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionServiceServer) AssignPermissionToUser(context.Context, *AssignPermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignPermissionToUser not implemented")
 }
-func (UnimplementedPermissionServer) RemovePermissionFromUser(context.Context, *RemovePermissionRequest) (*emptypb.Empty, error) {
+func (UnimplementedPermissionServiceServer) RemovePermissionFromUser(context.Context, *RemovePermissionRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemovePermissionFromUser not implemented")
 }
-func (UnimplementedPermissionServer) mustEmbedUnimplementedPermissionServer() {}
-func (UnimplementedPermissionServer) testEmbeddedByValue()                    {}
+func (UnimplementedPermissionServiceServer) CheckPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckPermission not implemented")
+}
+func (UnimplementedPermissionServiceServer) mustEmbedUnimplementedPermissionServiceServer() {}
+func (UnimplementedPermissionServiceServer) testEmbeddedByValue()                           {}
 
-// UnsafePermissionServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PermissionServer will
+// UnsafePermissionServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PermissionServiceServer will
 // result in compilation errors.
-type UnsafePermissionServer interface {
-	mustEmbedUnimplementedPermissionServer()
+type UnsafePermissionServiceServer interface {
+	mustEmbedUnimplementedPermissionServiceServer()
 }
 
-func RegisterPermissionServer(s grpc.ServiceRegistrar, srv PermissionServer) {
-	// If the following call pancis, it indicates UnimplementedPermissionServer was
+func RegisterPermissionServiceServer(s grpc.ServiceRegistrar, srv PermissionServiceServer) {
+	// If the following call pancis, it indicates UnimplementedPermissionServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Permission_ServiceDesc, srv)
+	s.RegisterService(&PermissionService_ServiceDesc, srv)
 }
 
-func _Permission_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionService_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).CreatePermission(ctx, in)
+		return srv.(PermissionServiceServer).CreatePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_CreatePermission_FullMethodName,
+		FullMethod: PermissionService_CreatePermission_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
+		return srv.(PermissionServiceServer).CreatePermission(ctx, req.(*CreatePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_GetInfoForPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+func _PermissionService_GetInfoForPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadPermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).GetInfoForPermissions(ctx, in)
+		return srv.(PermissionServiceServer).GetInfoForPermissions(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_GetInfoForPermissions_FullMethodName,
+		FullMethod: PermissionService_GetInfoForPermissions_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).GetInfoForPermissions(ctx, req.(*emptypb.Empty))
+		return srv.(PermissionServiceServer).GetInfoForPermissions(ctx, req.(*ReadPermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionService_UpdatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdatePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).UpdatePermission(ctx, in)
+		return srv.(PermissionServiceServer).UpdatePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_UpdatePermission_FullMethodName,
+		FullMethod: PermissionService_UpdatePermission_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
+		return srv.(PermissionServiceServer).UpdatePermission(ctx, req.(*UpdatePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionService_DeletePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeletePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).DeletePermission(ctx, in)
+		return srv.(PermissionServiceServer).DeletePermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_DeletePermission_FullMethodName,
+		FullMethod: PermissionService_DeletePermission_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
+		return srv.(PermissionServiceServer).DeletePermission(ctx, req.(*DeletePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_AssignPermissionToUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionService_AssignPermissionToUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AssignPermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).AssignPermissionToUser(ctx, in)
+		return srv.(PermissionServiceServer).AssignPermissionToUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_AssignPermissionToUser_FullMethodName,
+		FullMethod: PermissionService_AssignPermissionToUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).AssignPermissionToUser(ctx, req.(*AssignPermissionRequest))
+		return srv.(PermissionServiceServer).AssignPermissionToUser(ctx, req.(*AssignPermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_RemovePermissionFromUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PermissionService_RemovePermissionFromUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemovePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).RemovePermissionFromUser(ctx, in)
+		return srv.(PermissionServiceServer).RemovePermissionFromUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_RemovePermissionFromUser_FullMethodName,
+		FullMethod: PermissionService_RemovePermissionFromUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).RemovePermissionFromUser(ctx, req.(*RemovePermissionRequest))
+		return srv.(PermissionServiceServer).RemovePermissionFromUser(ctx, req.(*RemovePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Permission_ServiceDesc is the grpc.ServiceDesc for Permission service.
+func _PermissionService_CheckPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckPermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionServiceServer).CheckPermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionService_CheckPermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionServiceServer).CheckPermission(ctx, req.(*CheckPermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PermissionService_ServiceDesc is the grpc.ServiceDesc for PermissionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Permission_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sso.Permission",
-	HandlerType: (*PermissionServer)(nil),
+var PermissionService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "sso.PermissionService",
+	HandlerType: (*PermissionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreatePermission",
-			Handler:    _Permission_CreatePermission_Handler,
+			Handler:    _PermissionService_CreatePermission_Handler,
 		},
 		{
 			MethodName: "GetInfoForPermissions",
-			Handler:    _Permission_GetInfoForPermissions_Handler,
+			Handler:    _PermissionService_GetInfoForPermissions_Handler,
 		},
 		{
 			MethodName: "UpdatePermission",
-			Handler:    _Permission_UpdatePermission_Handler,
+			Handler:    _PermissionService_UpdatePermission_Handler,
 		},
 		{
 			MethodName: "DeletePermission",
-			Handler:    _Permission_DeletePermission_Handler,
+			Handler:    _PermissionService_DeletePermission_Handler,
 		},
 		{
 			MethodName: "AssignPermissionToUser",
-			Handler:    _Permission_AssignPermissionToUser_Handler,
+			Handler:    _PermissionService_AssignPermissionToUser_Handler,
 		},
 		{
 			MethodName: "RemovePermissionFromUser",
-			Handler:    _Permission_RemovePermissionFromUser_Handler,
+			Handler:    _PermissionService_RemovePermissionFromUser_Handler,
+		},
+		{
+			MethodName: "CheckPermission",
+			Handler:    _PermissionService_CheckPermission_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
