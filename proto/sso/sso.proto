@@ -146,11 +146,10 @@ message UserPermissions {
 message User {
     bytes user_id = 1;
     string email = 2;
-    string name = 3;
-    repeated Group groups = 4;
-    google.protobuf.Timestamp created_at = 5;
-    google.protobuf.Timestamp last_login_at = 6;
-    bool is_active = 7;
+    repeated Group groups = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp last_login_at = 5;
+    bool is_active = 6;
 }
 
 // ---- APP MESSAGE STRUCT ----
