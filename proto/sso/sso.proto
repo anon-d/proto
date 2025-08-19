@@ -145,7 +145,7 @@ message UserPermissions {
 message User {
     bytes user_id = 1;
     string email = 2;
-    repeated Group groups = 3;
+    repeated string groups = 3;
     google.protobuf.Timestamp created_at = 4;
     google.protobuf.Timestamp last_login_at = 5;
     bool is_active = 6;
